@@ -1,4 +1,5 @@
-﻿using Application.Features.Users.Commands.CreateUser;
+﻿using API.Filters;
+using Application.Features.Users.Commands.CreateUser;
 using Application.Features.Users.Queries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ public class UsersController : ControllerBase
 
     // POST api/users
     [HttpPost]
+    [ServiceFilter(typeof(ValidateCreateUserFilter))]
     public async Task<IActionResult> CreateUser(
         [FromBody] CreateUserCommand command,
         CancellationToken cancellationToken)
@@ -30,6 +32,7 @@ public class UsersController : ControllerBase
 
     // GET api/users/1
     [HttpGet("{id}")]
+    
     public async Task<IActionResult> GetById(
         int id,
         CancellationToken cancellationToken)

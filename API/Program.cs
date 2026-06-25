@@ -1,7 +1,8 @@
-﻿using Application;
+﻿using API.Filters;
+using Application;
+using FluentValidation;
 using Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
-using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,12 @@ builder.Services.AddMemoryCache();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+// Register the filter in DI container
+builder.Services.AddScoped<ValidateCreateUserFilter>();
+//builder.Services.AddControllers(options =>
+//{
+//    options.Filters.Add<ValidateCreateUserFilter>();
+//});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

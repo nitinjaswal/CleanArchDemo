@@ -19,6 +19,7 @@ public class GetUserByIdQueryHandler
         GetUserByIdQuery request,
         CancellationToken cancellationToken)
     {
+        var user1 = await _userRepository.GetByIdAsync(request.Id, cancellationToken);
         // Step 1 — build unique cache key
         var cacheKey = $"user-{request.Id}";
 
